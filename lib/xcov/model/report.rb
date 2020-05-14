@@ -49,6 +49,18 @@ module Xcov
       "#{@targets.map { |target| target.markdown_summary_value }.join("")}\n> Powered by [xcov](https://github.com/nakiostudio/xcov)"
     end
 
+    def slack_attachments
+      attachments = []
+
+      targets.each do |target|
+        attachments << {
+          text: "#{target.name}: #{target.displayable_coverage}",
+          color: target.coverage_color,
+          short: true
+        }
+      end
+      attachments
+    end
 
     def json_value
         {
